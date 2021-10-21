@@ -36,22 +36,15 @@ export class SingleLinkedList<T> {
      * This does what you expect. Returns the object as a list of space-separated items.
      * */
     toString(): string {
-        let stringifiedLinkedList = ''
-        let current = this.head
-        if ((current?.getValue() as any).toString) {
-            stringifiedLinkedList += (current?.getValue() as any).toString()
-        } else {
-            stringifiedLinkedList += current?.getValue() ? current?.getValue() as unknown as string : ''
-        }
-        while (current?.getNext()) {
-            if ((current?.getValue() as any).toString) {
-                stringifiedLinkedList += (current?.getValue() as any).toString()
-            } else {
-                stringifiedLinkedList += " " + current?.getValue() ? current?.getValue() as unknown as string : ''
+        let stringifiedList = ''
+        let currentNode = this.head
+       while(currentNode) {
+            if (typeof currentNode.getValue()['toString'] === 'function') {
+                stringifiedList += currentNode.getValue().toString()
             }
-            current = current.getNext()
-        }
-        return stringifiedLinkedList
+           currentNode = currentNode.getNext()
+       }
+       return stringifiedList
     }
 }
 
